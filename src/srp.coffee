@@ -1,4 +1,4 @@
-BigInteger = require('jsbn').BigInteger
+BigNum = require 'bignum'
 createHash = require 'create-hash'
 randomBytes = require 'randombytes'
 
@@ -42,7 +42,7 @@ class SRP
 		P = options.P
 		salt = options.salt
 
-		result = @params.g.modPow @x(options), @params.N
+		result = @params.g.powm @x(options), @params.N
 		result = transform.pad.toN result, @params
 
 		return result
@@ -66,7 +66,7 @@ class SRP
 
 		# Check here to ensure that a.length is not smaller than 256
 
-		result = @params.g.modPow a, @params.N
+		result = @params.g.powm a, @params.N
 		result = transform.pad.toN result, @params
 
 		return result
@@ -80,7 +80,7 @@ class SRP
 
 		# This actually ends up being (v + (g^b % N)) % N, this is the way
 		# everyone else is doing it, so it's the way we're gonna do it.
-		result = @k().multiply(v).add(@params.g.modPow(b, @params.N)).mod(@params.N)
+		result = @k().mul(v).add(@params.g.powm(b, @params.N)).mod(@params.N)
 		result = transform.pad.toN result, @params
 
 		return result
@@ -110,14 +110,14 @@ class SRP
 		x = options.x # BigInteger
 
 		result = B
-			.subtract(
-				@k().multiply(
-					@params.g.modPow(x, @params.N)
+			.sub(
+				@k().mul(
+					@params.g.powm(x, @params.N)
 				)
 			)
-			.modPow(
+			.powm(
 				a.add(
-					u.multiply(x)
+					u.mul(x)
 				),
 				@params.N
 			)
@@ -133,10 +133,10 @@ class SRP
 		b = options.b # BigInteger
 
 		result = A
-			.multiply(
-				v.modPow(u, @params.N)
+			.mul(
+				v.powm(u, @params.N)
 			)
-			.modPow(b, @params.N)
+			.powm(b, @params.N)
 
 		result = transform.pad.toN result, @params
 		return result
@@ -197,6 +197,6 @@ class SRP
 
 	# This is used to ensure that values are not zero when mod N.
 	isZeroWhenModN: (thisBigInt) ->
-		return thisBigInt.mod(@params.N).equals(BigInteger.ZERO)
+		return thisBigInt.mod(@params.N).eq(BigNum(0))
 
 module.exports = SRP

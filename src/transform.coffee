@@ -1,4 +1,4 @@
-BigInteger = require('jsbn').BigInteger
+BigNum = require('bignum')
 
 class Transform
 
@@ -19,15 +19,14 @@ class Transform
 			return thisHexString
 
 		fromHex: (hexStr) ->
-			return new BigInteger hexStr, 16
+      buffer = new Buffer(hexStr, 'hex')
+      return BigNum.fromBuffer buffer
 
 		# Convert a BigInteger to a buffer. This works by converting the
 		# BigInteger to a hex string, then loading the hex string into a buffer.
 		# Definitely not the best way to do it, but it works well.
 		toBuffer: (bigIntegerObj) ->
-			thisHexString = @toHex bigIntegerObj
-
-			return new Buffer thisHexString, 'hex'
+			return bigIntegerObj.toBuffer()
 
 	class TransBuffer
 
@@ -37,8 +36,7 @@ class Transform
 		# Convert a buffer to a BigInteger. This works the same way TransBigInt.
 		# toBuffer works, by first converting to hex and then loading back.
 		toBigInteger: (bufferObj) ->
-			thisHexString = @toHex bufferObj
-			return new BigInteger thisHexString, 16
+			return BigNum.fromBuffer bufferObj
 
 	class TransPad extends TransBigInt
 		to: (n, length) ->

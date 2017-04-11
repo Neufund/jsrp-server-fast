@@ -1,16 +1,16 @@
 {
-  "name": "jsrp",
-  "version": "0.2.3",
-  "description": "JavaScript SRP implementation",
+  "name": "jsrp-server-fast",
+  "version": "0.2.3-beta.1",
+  "description": "Fast (OpenSSL) JavaScript SRP implementation for node.js only",
   "main": "jsrp.js",
   "scripts": {
     "test": "mocha -R spec --require coffee-script/register --compilers coffee:coffee-script"
   },
-  "author": "Alax Villmann",
+  "author": "Leonid Logvinov <logvinov.leon@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "create-hash": "^1.1.2",
-    "jsbn": "0.1.0",
+    "bignum": "^0.12.5",
     "randombytes": "^2.0.3"
   },
   "devDependencies": {
@@ -23,13 +23,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/alax/jsrp.git"
+    "url": "https://github.com/Neufund/jsrp-server-fast.git"
   },
   "keywords": [
     "srp"
   ],
   "bugs": {
-    "url": "https://github.com/alax/jsrp/issues"
+    "url": "https://github.com/Neufund/jsrp-server-fast/issues"
   },
-  "homepage": "https://github.com/alax/jsrp"
+  "homepage": "https://github.com/Neufund/jsrp-server-fast"
 }
