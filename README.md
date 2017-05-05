@@ -1,5 +1,7 @@
 # jsrp-server-fast
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Neufund/jsrp-server-fast.svg)](https://greenkeeper.io/)
+
 This package is a fork of [jsrp](https://github.com/alax/jsrp) which uses
 [`bignum`](https://github.com/justmoon/node-bignum) as a big number library instead of 
 [`jsbn`](https://github.com/andyperlitch/jsbn)
